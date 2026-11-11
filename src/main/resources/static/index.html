@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoodLink | NGO Volunteer Platform & Algorithmic Hub</title>
+    <meta name="description" content="GoodLink NGO volunteer coordination platform backed by custom hand-crafted data structures (BST, Dynamic Array, Dual Queues, Linked Lists) with Telegram Bot and OpenPDF certificate issuance.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Navigation Header -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="brand">
+                <div class="brand-logo">
+                    <span class="logo-icon">🤝</span>
+                    <span class="logo-pulse"></span>
+                </div>
+                <div class="brand-text">
+                    <h1 class="brand-title">GoodLink</h1>
+                    <span class="brand-tag">NGO Platform & Algorithmic Core</span>
+                </div>
+            </div>
+            
+            <!-- Live Server Indicator -->
+            <div class="server-status-pill" id="server-status-pill">
+                <span class="status-dot"></span>
+                <span class="status-label" id="status-text">Connecting to :8081...</span>
+                <span class="status-mode" id="status-mode">Simulation Mode</span>
+            </div>
+
+            <div class="header-actions">
+                <button class="btn btn-secondary btn-sm" id="btn-refresh" title="Refresh Live State">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                    <span>Refresh</span>
+                </button>
+                <a href="#bot-simulator" class="btn btn-primary btn-sm" id="nav-btn-bot">
+                    <span>🤖 Telegram Console</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main App Layout -->
+    <div class="app-layout">
+        <!-- Navigation Sidebar -->
+        <aside class="sidebar">
+            <nav class="nav-menu">
+                <button class="nav-item active" data-tab="dashboard" id="tab-btn-dashboard">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Live Dashboard</span>
+                </button>
+                <button class="nav-item" data-tab="ds-lab" id="tab-btn-ds-lab">
+                    <span class="nav-icon">⚡</span>
+                    <span class="nav-text">Data Structures Lab</span>
+                    <span class="nav-badge">6 DS</span>
+                </button>
+                <button class="nav-item" data-tab="activities" id="tab-btn-activities">
+                    <span class="nav-icon">🌟</span>
+                    <span class="nav-text">Activities Catalog</span>
+                </button>
+                <button class="nav-item" data-tab="volunteers" id="tab-btn-volunteers">
+                    <span class="nav-icon">👥</span>
+                    <span class="nav-text">Volunteer Roster</span>
+                </button>
+                <button class="nav-item" data-tab="bot-simulator" id="tab-btn-bot">
+                    <span class="nav-icon">💬</span>
+                    <span class="nav-text">Bot Terminal</span>
+                    <span class="nav-pulse"></span>
+                </button>
+                <button class="nav-item" data-tab="donations-urgent" id="tab-btn-donations">
+                    <span class="nav-icon">🎁</span>
+                    <span class="nav-text">Donations & Dispatch</span>
+                </button>
+                <button class="nav-item" data-tab="achievements" id="tab-btn-achievements">
+                    <span class="nav-icon">🏆</span>
+                    <span class="nav-text">Achievements Wall</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="spec-card">
+                    <div class="spec-header">
+                        <span class="spec-dot"></span>
+                        <span class="spec-title">Algorithms Specs</span>
+                    </div>
+                    <p class="spec-desc">100% custom data structures in <code>com.goodlink.ds</code>. Zero <code>java.util</code> collections used for core logic.</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- TAB 1: DASHBOARD OVERVIEW -->
+            <section class="tab-pane active" id="pane-dashboard">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Platform Overview & Data Pulse</h2>
+                        <p class="section-subtitle">Real-time status of custom algorithmic stores and backend coordination pipeline</p>
+                    </div>
+                    <div class="header-badges">
+                        <span class="badge badge-emerald">Spring Boot 3.2.5</span>
+                        <span class="badge badge-cyan">Java 17 LTS</span>
+                        <span class="badge badge-indigo">OpenPDF 1.3.40</span>
+                    </div>
+                </div>
+
+                <!-- Metrics Grid -->
+                <div class="metrics-grid">
+                    <div class="metric-card" id="card-ngos">
+                        <div class="metric-top">
+                            <span class="metric-label">NGOs in BST</span>
+                            <span class="metric-icon">🌳</span>
+                        </div>
+                        <div class="metric-value" id="val-ngos-count">5</div>
+                        <div class="metric-footer">
+                            <span class="ds-tag">NgoBST</span>
+                            <span class="metric-detail">O(log n) In-Order Sorted</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card" id="card-activities">
+                        <div class="metric-top">
+                            <span class="metric-label">Scheduled Drives</span>
+                            <span class="metric-icon">🗓️</span>
+                        </div>
+                        <div class="metric-value" id="val-activities-count">5</div>
+                        <div class="metric-footer">
+                            <span class="ds-tag">ActivityArray</span>
+                            <span class="metric-detail">Contiguous Array (2x resize)</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card" id="card-volunteers">
+                        <div class="metric-top">
+                            <span class="metric-label">Registered Volunteers</span>
+                            <span class="metric-icon">🤝</span>
+                        </div>
+                        <div class="metric-value" id="val-volunteers-count">1</div>
+                        <div class="metric-footer">
+                            <span class="ds-tag">MyLinkedList</span>
+                            <span class="metric-detail">Dynamic node chaining</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card" id="card-donations">
+                        <div class="metric-top">
+                            <span class="metric-label">Pledged Goods</span>
+                            <span class="metric-icon">📦</span>
+                        </div>
+                        <div class="metric-value" id="val-donations-count">0</div>
+                        <div class="metric-footer">
+                            <span class="ds-tag">MyQueue</span>
+                            <span class="metric-detail">Strict FIFO processing</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card highlight-urgent" id="card-urgent">
+                        <div class="metric-top">
+                            <span class="metric-label">Urgent Requests</span>
+                            <span class="metric-icon">🚨</span>
+                        </div>
+                        <div class="metric-value urgent-color" id="val-urgent-count">0</div>
+                        <div class="metric-footer">
+                            <span class="ds-tag urgent-tag">UrgentRequests</span>
+                            <span class="metric-detail" id="val-normal-count">0 Normal Queued</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card" id="card-achievements">
+                        <div class="metric-top">
+                            <span class="metric-label">Achievements Wall</span>
+                            <span class="metric-icon">🏅</span>
+                        </div>
+                        <div class="metric-value" id="val-achievements-count">2</div>
+                        <div class="metric-footer">
+                            <span class="ds-tag">MyLinkedList</span>
+                            <span class="metric-detail">Newest First (addFirst)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Action Hub & Recent Activity -->
+                <div class="grid-2-col">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">⚡ Quick Action Terminal</h3>
+                            <span class="panel-tag">REST & Dispatch</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="quick-actions-row">
+                                <button class="btn btn-outline" onclick="switchTab('activities')">
+                                    <span>➕ Join Volunteer Drive</span>
+                                </button>
+                                <button class="btn btn-outline" onclick="switchTab('donations-urgent')">
+                                    <span>🎁 Pledge Donation</span>
+                                </button>
+                                <button class="btn btn-outline" onclick="switchTab('donations-urgent')">
+                                    <span>🚨 File Urgent Need</span>
+                                </button>
+                                <button class="btn btn-outline" onclick="switchTab('bot-simulator')">
+                                    <span>🤖 Launch Bot Console</span>
+                                </button>
+                            </div>
+
+                            <div class="volunteer-quick-reg">
+                                <h4 class="subheading">Quick Volunteer Registration</h4>
+                                <form id="form-quick-register" class="inline-form">
+                                    <input type="number" id="quick-chatId" placeholder="Chat ID (e.g. 1002)" required class="form-input">
+                                    <input type="text" id="quick-name" placeholder="Full Name" required class="form-input">
+                                    <input type="email" id="quick-email" placeholder="Email Address" required class="form-input">
+                                    <button type="submit" class="btn btn-primary" id="btn-submit-quick-reg">Register</button>
+                                </form>
+                                <div id="quick-reg-feedback" class="form-feedback"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category Hierarchy Quick View -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">🌳 CategoryTree Hierarchy</h3>
+                            <span class="panel-tag">N-ary General Tree</span>
+                        </div>
+                        <div class="panel-body">
+                            <pre class="ascii-tree" id="category-tree-display">Loading hierarchy...</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: DATA STRUCTURES LAB -->
+            <section class="tab-pane" id="pane-ds-lab">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Algorithmic Data Structures Lab</h2>
+                        <p class="section-subtitle">Inspect the internal memory architecture, pointers, and algorithmic invariants</p>
+                    </div>
+                </div>
+
+                <div class="ds-lab-grid">
+                    <!-- DS 1: NgoBST -->
+                    <div class="ds-card">
+                        <div class="ds-card-header">
+                            <div class="ds-card-title-wrap">
+                                <span class="ds-icon">🌳</span>
+                                <div>
+                                    <h3 class="ds-title">NgoBST (Binary Search Tree)</h3>
+                                    <span class="ds-sub">Keyed by integer NGO ID &bull; $O(\log n)$ Search</span>
+                                </div>
+                            </div>
+                            <span class="badge badge-emerald" id="badge-bst-size">5 Nodes</span>
+                        </div>
+                        <div class="ds-card-body">
+                            <p class="ds-explanation">Ensures that NGOs are automatically kept ordered. In-order traversal (Left &rarr; Node &rarr; Right) prints NGOs in strictly ascending ID sequence for the Telegram <code>NGOS</code> command.</p>
+                            
+                            <div class="ds-search-bar">
+                                <input type="number" id="bst-search-id" placeholder="Search NGO ID..." class="form-input form-input-sm">
+                                <button class="btn btn-secondary btn-sm" id="btn-bst-search">Search BST</button>
+                                <span id="bst-search-result" class="search-result-pill"></span>
+                            </div>
+
+                            <div class="bst-tree-canvas" id="bst-visual-container">
+                                <!-- Nodes rendered dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DS 2: ActivityArray -->
+                    <div class="ds-card">
+                        <div class="ds-card-header">
+                            <div class="ds-card-title-wrap">
+                                <span class="ds-icon">📦</span>
+                                <div>
+                                    <h3 class="ds-title">ActivityArray (Dynamic Array)</h3>
+                                    <span class="ds-sub">Primitive <code>Activity[]</code> with $2\times$ Geometric Expansion</span>
+                                </div>
+                            </div>
+                            <span class="badge badge-cyan" id="badge-array-size">5 Elements</span>
+                        </div>
+                        <div class="ds-card-body">
+                            <p class="ds-explanation">Pre-allocates memory slots. When capacity is reached, it automatically re-allocates a new array with double capacity and copies existing pointers, providing $O(1)$ amortized additions.</p>
+                            <div class="array-visual-strip" id="array-visual-container">
+                                <!-- Array cells rendered dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DS 3: UrgentRequests Dual-Queue -->
+                    <div class="ds-card">
+                        <div class="ds-card-header">
+                            <div class="ds-card-title-wrap">
+                                <span class="ds-icon">🚨</span>
+                                <div>
+                                    <h3 class="ds-title">UrgentRequests (Dual Priority Queue)</h3>
+                                    <span class="ds-sub">Strict Invariant: Urgent Queue ALWAYS Serviced Before Normal</span>
+                                </div>
+                            </div>
+                            <span class="badge badge-rose" id="badge-urgent-size">Priority System</span>
+                        </div>
+                        <div class="ds-card-body">
+                            <p class="ds-explanation">Maintains two discrete FIFO queues (<code>urgentQueue</code> and <code>normalQueue</code>). Calls to <code>dequeue()</code> strictly drain the urgent queue first before touching normal requests.</p>
+                            
+                            <div class="dual-queue-container">
+                                <div class="queue-lane lane-urgent">
+                                    <div class="lane-title">🔴 Urgent Queue (Highest Priority)</div>
+                                    <div class="queue-nodes-list" id="queue-urgent-list">
+                                        <div class="empty-lane">No urgent emergency requests</div>
+                                    </div>
+                                </div>
+                                <div class="queue-lane lane-normal">
+                                    <div class="lane-title">🟡 Normal Queue (Standard FIFO)</div>
+                                    <div class="queue-nodes-list" id="queue-normal-list">
+                                        <div class="empty-lane">No standard requests queued</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DS 4: MyQueue (Donations) -->
+                    <div class="ds-card">
+                        <div class="ds-card-header">
+                            <div class="ds-card-title-wrap">
+                                <span class="ds-icon">🎁</span>
+                                <div>
+                                    <h3 class="ds-title">MyQueue&lt;Donation&gt; (FIFO Queue)</h3>
+                                    <span class="ds-sub">Front & Rear Node Pointers &bull; Sequential Goods Allocation</span>
+                                </div>
+                            </div>
+                            <span class="badge badge-indigo" id="badge-donations-size">FIFO Store</span>
+                        </div>
+                        <div class="ds-card-body">
+                            <p class="ds-explanation">Singly linked queue nodes with $O(1)$ enqueue at tail and $O(1)$ dequeue at head. Guarantees fair, chronologically ordered distribution of pledged blankets, ration kits, and supplies.</p>
+                            <div class="fifo-queue-visual" id="donations-queue-visual">
+                                <!-- Donations nodes rendered dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DS 5: MyLinkedList (Achievements) -->
+                    <div class="ds-card">
+                        <div class="ds-card-header">
+                            <div class="ds-card-title-wrap">
+                                <span class="ds-icon">🏆</span>
+                                <div>
+                                    <h3 class="ds-title">MyLinkedList&lt;Achievement&gt; (Prepend List)</h3>
+                                    <span class="ds-sub"><code>addFirst()</code> &bull; Newest Milestones Rendered First</span>
+                                </div>
+                            </div>
+                            <span class="badge badge-amber" id="badge-achievements-size">Newest First</span>
+                        </div>
+                        <div class="ds-card-body">
+                            <p class="ds-explanation">Every time a volunteer completes an activity, an achievement node is prepended via <code>addFirst()</code>, ensuring $O(1)$ insertions and immediate visibility at the top of the wall.</p>
+                            <div class="linked-list-strip" id="achievements-strip-visual">
+                                <!-- Achievements linked nodes -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DS 6: CategoryTree -->
+                    <div class="ds-card">
+                        <div class="ds-card-header">
+                            <div class="ds-card-title-wrap">
+                                <span class="ds-icon">🌳</span>
+                                <div>
+                                    <h3 class="ds-title">CategoryTree (General N-ary Tree)</h3>
+                                    <span class="ds-sub">Recursive Taxonomy Node Graph</span>
+                                </div>
+                            </div>
+                            <span class="badge badge-teal">N-ary Graph</span>
+                        </div>
+                        <div class="ds-card-body">
+                            <p class="ds-explanation">Hierarchical domain model connecting broad charity sectors to granular operational domains (e.g., Elder Care &rarr; Dementia Care, Child Welfare &rarr; Orphanages).</p>
+                            <pre class="ascii-tree-lab" id="category-tree-lab-display"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: ACTIVITIES CATALOG -->
+            <section class="tab-pane" id="pane-activities">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Activities Catalog & Participation</h2>
+                        <p class="section-subtitle">Browse upcoming NGO drives, register volunteers, and issue OpenPDF completion certificates</p>
+                    </div>
+                    <button class="btn btn-primary btn-sm" onclick="openAddActivityModal()">
+                        <span>➕ Add New Activity</span>
+                    </button>
+                </div>
+
+                <div class="activities-grid" id="activities-container">
+                    <!-- Activities populated dynamically -->
+                </div>
+            </section>
+
+            <!-- TAB 4: VOLUNTEER ROSTER -->
+            <section class="tab-pane" id="pane-volunteers">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Volunteer Directory & Registration</h2>
+                        <p class="section-subtitle">Linked Telegram Chat IDs to verified volunteer profiles</p>
+                    </div>
+                </div>
+
+                <div class="grid-table-layout">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">👥 Registered Volunteers</h3>
+                            <span class="badge badge-indigo" id="badge-volunteer-count">1 Volunteer</span>
+                        </div>
+                        <div class="panel-body table-responsive">
+                            <table class="data-table" id="volunteers-table">
+                                <thead>
+                                    <tr>
+                                        <th>Telegram Chat ID</th>
+                                        <th>Full Name</th>
+                                        <th>Email Address</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="volunteers-tbody">
+                                    <tr><td colspan="4" class="text-center">Loading volunteers...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">📝 Register New Volunteer</h3>
+                            <span class="panel-tag">REST & Bot Sync</span>
+                        </div>
+                        <div class="panel-body">
+                            <form id="form-full-register" class="vertical-form">
+                                <div class="form-group">
+                                    <label for="reg-chatId">Telegram Chat ID (Numeric)</label>
+                                    <input type="number" id="reg-chatId" class="form-input" placeholder="e.g. 987654321" required>
+                                    <span class="form-hint">Unique identifier simulating Telegram user session</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reg-name">Full Name</label>
+                                    <input type="text" id="reg-name" class="form-input" placeholder="e.g. Bruce Wayne" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reg-email">Email Address</label>
+                                    <input type="email" id="reg-email" class="form-input" placeholder="e.g. bruce@wayne.com" required>
+                                    <span class="form-hint">Used for confirmations and OpenPDF certificate issuance</span>
+                                </div>
+                                <button type="submit" class="btn btn-primary" id="btn-submit-full-reg">Create Profile</button>
+                            </form>
+                            <div id="full-reg-feedback" class="form-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: BOT SIMULATOR TERMINAL -->
+            <section class="tab-pane" id="pane-bot-simulator">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Telegram Bot Interactive Console</h2>
+                        <p class="section-subtitle">Simulate real Telegram interactions with GoodLinkTelegramBot long-polling backend</p>
+                    </div>
+                </div>
+
+                <div class="bot-simulator-container">
+                    <!-- Telegram Chat Window -->
+                    <div class="chat-window">
+                        <div class="chat-header">
+                            <div class="bot-avatar">🤖</div>
+                            <div class="chat-header-info">
+                                <h3 class="bot-name">GoodLinkBot</h3>
+                                <span class="bot-status">bot &bull; always listening</span>
+                            </div>
+                            <div class="chat-chatid-selector">
+                                <label for="bot-chatid-input">Simulating Chat ID:</label>
+                                <input type="number" id="bot-chatid-input" value="987654321" class="form-input form-input-xs">
+                            </div>
+                        </div>
+
+                        <!-- Chat Messages History -->
+                        <div class="chat-messages" id="chat-messages-container">
+                            <div class="chat-msg bot">
+                                <div class="bubble">
+                                    👋 <b>Welcome to GoodLink NGO Platform!</b><br>
+                                    I am your automated volunteer and relief assistant.<br><br>
+                                    Type <code>/start</code> or click one of the quick chips below to get started!
+                                </div>
+                                <span class="msg-time">System</span>
+                            </div>
+                        </div>
+
+                        <!-- Quick Action Chips -->
+                        <div class="chat-quick-chips">
+                            <button class="chip" onclick="sendQuickBotMsg('/start')">/start</button>
+                            <button class="chip" onclick="sendQuickBotMsg('NGOS')">NGOS</button>
+                            <button class="chip" onclick="sendQuickBotMsg('ACTIVITIES')">ACTIVITIES</button>
+                            <button class="chip" onclick="sendQuickBotMsg('REGISTER Diana Prince diana@themyscira.gov')">REGISTER Diana</button>
+                            <button class="chip" onclick="sendQuickBotMsg('JOIN 1')">JOIN 1</button>
+                            <button class="chip" onclick="sendQuickBotMsg('DONATE Warm Blankets 20')">DONATE Blankets</button>
+                            <button class="chip" onclick="sendQuickBotMsg('URGENT BLOOD O-negative 2 units Ruby Hall Pune')">URGENT BLOOD</button>
+                            <button class="chip" onclick="sendQuickBotMsg('ACHIEVEMENTS')">ACHIEVEMENTS</button>
+                            <button class="chip" onclick="sendQuickBotMsg('CATEGORIES')">CATEGORIES</button>
+                        </div>
+
+                        <!-- Chat Input Box -->
+                        <form id="bot-input-form" class="chat-input-bar">
+                            <input type="text" id="bot-input-text" placeholder="Type a bot command (e.g., NGOS, JOIN 1, DONATE Rice 50)..." autocomplete="off" class="form-input">
+                            <button type="submit" class="btn btn-primary" id="btn-send-bot-msg">
+                                <span>Send</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Command Reference Cheat Sheet -->
+                    <div class="bot-cheatsheet panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">📖 Bot Commands Reference</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="command-ref-list">
+                                <li>
+                                    <code>/start</code> or <code>HELP</code>
+                                    <p>Displays greeting and command catalogue.</p>
+                                </li>
+                                <li>
+                                    <code>REGISTER &lt;name&gt; &lt;email&gt;</code>
+                                    <p>Associates Chat ID with volunteer contact profile.</p>
+                                </li>
+                                <li>
+                                    <code>NGOREGISTER &lt;ngoId&gt; &lt;contactEmail&gt;</code>
+                                    <p>Sets or updates NGO real contact email at runtime.</p>
+                                </li>
+                                <li>
+                                    <code>NGOS</code>
+                                    <p>Queries <b>NgoBST</b> and prints NGOs in sorted ID order.</p>
+                                </li>
+                                <li>
+                                    <code>ACTIVITIES</code>
+                                    <p>Lists upcoming drives from <b>ActivityArray</b>.</p>
+                                </li>
+                                <li>
+                                    <code>JOIN &lt;activityId&gt;</code>
+                                    <p>Registers volunteer into activity and sends confirmation email.</p>
+                                </li>
+                                <li>
+                                    <code>DONATE &lt;item&gt; &lt;quantity&gt;</code>
+                                    <p>Enqueues goods into <b>MyQueue</b> (FIFO).</p>
+                                </li>
+                                <li>
+                                    <code>URGENT &lt;BLOOD|FOOD&gt; &lt;details&gt; &lt;city&gt;</code>
+                                    <p>Inserts request into urgent queue and dispatches priority email.</p>
+                                </li>
+                                <li>
+                                    <code>ACHIEVEMENTS</code>
+                                    <p>Lists wall of achievements (newest first).</p>
+                                </li>
+                                <li>
+                                    <code>CATEGORIES</code>
+                                    <p>Renders ASCII tree of category hierarchy.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 6: DONATIONS & URGENT DISPATCH -->
+            <section class="tab-pane" id="pane-donations-urgent">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Donations Queue & Priority Dispatch</h2>
+                        <p class="section-subtitle">Manage FIFO item donations and high-priority critical relief alerts</p>
+                    </div>
+                </div>
+
+                <div class="grid-2-col">
+                    <!-- Pledge Donation Form & Queue -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">🎁 Pledge Item Donation</h3>
+                            <span class="panel-tag">MyQueue (FIFO)</span>
+                        </div>
+                        <div class="panel-body">
+                            <form id="form-pledge-donation" class="vertical-form">
+                                <div class="form-group">
+                                    <label for="donate-chatId">Volunteer Chat ID</label>
+                                    <input type="number" id="donate-chatId" value="1001" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="donate-item">Item Description</label>
+                                    <input type="text" id="donate-item" placeholder="e.g. Winter Jackets, Rice 50kg Bags, Baby Food" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="donate-quantity">Quantity (Numeric)</label>
+                                    <input type="number" id="donate-quantity" placeholder="e.g. 25" min="1" class="form-input" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary" id="btn-submit-donation">Enqueue Donation</button>
+                            </form>
+                            <div id="donate-feedback" class="form-feedback"></div>
+
+                            <hr class="divider">
+                            <h4 class="subheading">Current FIFO Donations Queue:</h4>
+                            <div class="donations-list-container" id="donations-display-list">
+                                <div class="empty-state">No donations currently queued.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- File Urgent Request & Queue -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">🚨 Urgent Emergency Dispatch</h3>
+                            <span class="badge badge-rose">Urgent Dual-Queue</span>
+                        </div>
+                        <div class="panel-body">
+                            <form id="form-file-urgent" class="vertical-form">
+                                <div class="form-group">
+                                    <label for="urgent-chatId">Reporter Chat ID</label>
+                                    <input type="number" id="urgent-chatId" value="1001" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="urgent-type">Emergency Type</label>
+                                    <select id="urgent-type" class="form-input" required>
+                                        <option value="BLOOD">BLOOD (Critical Units / Surgeries)</option>
+                                        <option value="FOOD">FOOD (Disaster Relief / Mass Feeding)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="urgent-details">Details & Specifications</label>
+                                    <input type="text" id="urgent-details" placeholder="e.g. O-negative 2 units for urgent surgery at Ruby Hall" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="urgent-city">City / Location</label>
+                                    <input type="text" id="urgent-city" placeholder="e.g. Pune, Mumbai, Delhi" class="form-input" required>
+                                </div>
+                                <button type="submit" class="btn btn-rose" id="btn-submit-urgent">Dispatch Urgent Request</button>
+                            </form>
+                            <div id="urgent-feedback" class="form-feedback"></div>
+
+                            <hr class="divider">
+                            <h4 class="subheading">Active Emergency Requests:</h4>
+                            <div class="urgent-list-container" id="urgent-display-list">
+                                <div class="empty-state">No active emergency requests.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 7: ACHIEVEMENTS WALL -->
+            <section class="tab-pane" id="pane-achievements">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Wall of Achievements & Impact</h2>
+                        <p class="section-subtitle">Milestones recorded newest first via <code>MyLinkedList.addFirst()</code></p>
+                    </div>
+                </div>
+
+                <div class="achievements-timeline" id="achievements-timeline-container">
+                    <!-- Achievements cards rendered dynamically -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for Adding New Activity -->
+    <div class="modal-overlay" id="modal-add-activity">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title">Schedule New Activity</h3>
+                <button class="modal-close-btn" onclick="closeAddActivityModal()">&times;</button>
+            </div>
+            <form id="form-add-activity" class="vertical-form modal-body">
+                <div class="form-group">
+                    <label for="act-id">Activity ID (Numeric)</label>
+                    <input type="number" id="act-id" class="form-input" placeholder="e.g. 6" required>
+                </div>
+                <div class="form-group">
+                    <label for="act-ngo-id">Host NGO ID</label>
+                    <select id="act-ngo-id" class="form-input" required></select>
+                </div>
+                <div class="form-group">
+                    <label for="act-title">Activity Title</label>
+                    <input type="text" id="act-title" class="form-input" placeholder="e.g. Tree Plantation Drive" required>
+                </div>
+                <div class="form-group">
+                    <label for="act-date">Scheduled Date (YYYY-MM-DD)</label>
+                    <input type="date" id="act-date" class="form-input" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeAddActivityModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="btn-save-new-act">Save Activity</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
